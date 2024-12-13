@@ -1,0 +1,14 @@
+$TTL    604800
+@       IN      SOA     office.local. admin.office.local. (
+                              1         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      router.office.local.
+1       IN      PTR     router.office.local.
+2       IN      PTR     client1.office.local.
+3       IN      PTR     client2.office.local.
+
+

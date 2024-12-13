@@ -1,0 +1,5 @@
+ifconfig eth0 up
+/etc/init.d/networking start
+iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+service isc-dhcp-server start
+service bind start

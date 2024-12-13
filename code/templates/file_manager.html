@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}File Manager{% endblock %}
+
+{% block content %}
+    <h1>File Manager</h1>
+    <div class="card">
+        <div id="drop-zone">
+            <p>Drag and drop files here or click to upload</p>
+            <input type="file" id="file-input" multiple style="display: none;">
+        </div>
+        <ul id="file-list">
+            {% for file in files %}
+                <li>{{ file }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        // ... (keep the existing JavaScript)
+    </script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Student Room{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Room {{ room_data.room_number }}</h1>
+    <div class="card">
+        <h2>Tenant Information</h2>
+        <ul>
+            {% for tenant in room_data.tenants %}
+                <li>{{ tenant }}</li>
+            {% endfor %}
+        </ul>
+        <p>Room Capacity: {{ room_data.capacity }}</p>
+    </div>
+{% endblock %}

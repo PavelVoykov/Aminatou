@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Smart Room{% endblock %}
+
+{% block content %}
+    <h1>Smart Room Controls</h1>
+    <div class="card">
+        <div id="sensor-data">
+            <p>Temperature: <span id="temperature"></span>°C</p>
+            <p>Humidity: <span id="humidity"></span>%</p>
+        </div>
+        <button id="toggle-lamp">Toggle Smart Lamp</button>
+    </div>
+
+    <script>
+        // ... (keep the existing JavaScript)
+    </script>
+{% endblock %}
