@@ -1,23 +1,52 @@
 {% extends "base.html" %}
 
-{% block title %}Useful Links{% endblock %}
+{% block title %}Useful Links and Local Shops{% endblock %}
 
 {% block content %}
-    <h1>Useful Links for Students</h1>
-    <div class="card link-category">
-        <h2>Shopping</h2>
+    <h1>Local Shops and Useful Links in Eindhoven</h1>
+    <div class="widget">
+        <h2>Popular Stores in Eindhoven</h2>
+        <div class="shop-grid">
+            <div class="shop-card">
+                <img src="{{ url_for('static', filename='images/mediamarkt.jpg') }}" alt="MediaMarkt Eindhoven">
+                <h3>MediaMarkt</h3>
+                <p>Electronics and appliances</p>
+            </div>
+            <div class="shop-card">
+                <img src="{{ url_for('static', filename='images/jokkmokk.jpg') }}" alt="Jokkmokk Eindhoven">
+                <h3>Jokkmokk</h3>
+                <p>Specialty cheese shop</p>
+            </div>
+            <div class="shop-card">
+                <img src="{{ url_for('static', filename='images/yksi.jpg') }}" alt="Yksi Eindhoven">
+                <h3>Yksi</h3>
+                <p>Dutch design showcase</p>
+            </div>
+            <div class="shop-card">
+                <img src="{{ url_for('static', filename='images/mrbrown.jpg') }}" alt="Mr. Brown Eindhoven">
+                <h3>Mr. Brown</h3>
+                <p>Optician and coffee shop</p>
+            </div>
+            <div class="shop-card">
+                <img src="{{ url_for('static', filename='images/vielgut.jpg') }}" alt="Vielgut Eindhoven">
+                <h3>Vielgut</h3>
+                <p>Clothing and accessories</p>
+            </div>
+            <div class="shop-card">
+                <img src="{{ url_for('static', filename='images/sissy-boy.jpg') }}" alt="Sissy-Boy Eindhoven">
+                <h3>Sissy-Boy @DeBlob</h3>
+                <p>Fashion and interior concept store</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="widget">
+        <h2>Useful Links for Students</h2>
         <ul class="link-list">
-            <li><a href="https://www.amazon.com" target="_blank">Amazon</a></li>
-            <li><a href="https://www.ebay.com" target="_blank">eBay</a></li>
+            <li><a href="https://www.vanabbemuseum.nl/en/" target="_blank">Van Abbe Museum</a></li>
+            <li><a href="https://www.effenaar.nl/" target="_blank">Effenaar</a></li>
+            <li><a href="https://www.vershalhetveem.nl/" target="_blank">Foodmarket Vershal het Veem</a></li>
+            <li><a href="https://www.thisiseindhoven.com/en/see-and-do/shopping/markets" target="_blank">Local Markets</a></li>
         </ul>
     </div>
-    <div class="card link-category">
-        <h2>Streaming</h2>
-        <ul class="link-list">
-            <li><a href="https://www.netflix.com" target="_blank">Netflix</a></li>
-            <li><a href="https://www.hulu.com" target="_blank">Hulu</a></li>
-            <li><a href="https://www.disneyplus.com" target="_blank">Disney+</a></li>
-        </ul>
-    </div>
-    <!-- Add more categories and links as needed -->
 {% endblock %}

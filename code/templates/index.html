@@ -4,11 +4,17 @@
 
 {% block content %}
     <h1>Welcome to Room {{ room_data.room_number }}</h1>
-    <div class="card">
+    <div class="widget">
         <h2>Tenant Information</h2>
         <ul>
             {% for tenant in room_data.tenants %}
-                <li>{{ tenant }}</li>
+                <li>
+                    <h2 class="tenant-name">{{ tenant }}</h2>
+                    <div class="tenant-info">
+                        <h3>Additional Information</h3>
+                        <textarea class="tenant-details" placeholder="Add your details here..."></textarea>
+                    </div>
+                </li>
             {% endfor %}
         </ul>
         <p>Room Capacity: {{ room_data.capacity }}</p>

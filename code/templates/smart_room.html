@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>Smart Room Controls</h1>
-    <div class="card">
+    <div class="widget">
         <div id="sensor-data">
             <p>Temperature: <span id="temperature"></span>°C</p>
             <p>Humidity: <span id="humidity"></span>%</p>
@@ -13,6 +13,20 @@
     </div>
 
     <script>
-        // ... (keep the existing JavaScript)
+        function updateSensorData() {
+            fetch('/get_sensor_data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('temperature').textContent = data.temperature;
+                    document.getElementById('humidity').textContent = data.humidity;
+                });
+        }
+
+        setInterval(updateSensorData, 5000);  // Update every 5 seconds
+
+        document.getElementById('toggle-lamp').addEventListener('click', function() {
+            // Here you would typically send a request to your ESP32 to toggle the lamp
+            alert('Lamp toggled!');
+        });
     </script>
 {% endblock %}
