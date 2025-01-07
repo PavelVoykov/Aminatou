@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Electricity Consumption{% endblock %}
+
+{% block content %}
+    <h1>Electricity Consumption</h1>
+    <div class="widget">
+        <h2>Current Consumption</h2>
+        <p>Current Power: <span id="currentPower">0</span> W</p>
+        <p>Today's Usage: <span id="todayUsage">0</span> kWh</p>
+    </div>
+    <div class="widget">
+        <h2>Historical Data</h2>
+        <canvas id="consumptionChart"></canvas>
+    </div>
+    <div class="widget">
+        <h2>Energy Saving Tips</h2>
+        <ul id="energyTips">
+            <!-- Tips will be populated by JavaScript -->
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/electricity_consumption.js') }}"></script>
+{% endblock %}

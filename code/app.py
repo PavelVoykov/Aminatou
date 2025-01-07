@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from werkzeug.utils import secure_filename
+import random
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -55,6 +56,11 @@ def get_sensor_data():
         "temperature": 22.5,
         "humidity": 45
     })
+
+@app.route('/electricity_consumption')
+def electricity_consumption():
+    return render_template('electricity_consumption.html')
+
 
 
 

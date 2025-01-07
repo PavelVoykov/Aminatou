@@ -213,7 +213,7 @@ button:hover {
 
 /* Slider styles */
 .slider {
-  -webkit-appearance: none;
+  --webkit-appearance: none;
   width: 100%;
   height: 15px;
   border-radius: 5px;
@@ -531,5 +531,19 @@ input[type="number"] {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+#consumptionChart {
+  width: 100%;
+  height: 300px;
+}
+
+#energyTips {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+#energyTips li {
+  margin-bottom: 10px;
 }
 
