@@ -1,22 +1,30 @@
 {% extends "base.html" %}
 
-{% block title %}Home - Student Room{% endblock %}
+{% block title %}Tenant Information{% endblock %}
 
 {% block content %}
-    <h1>Welcome to Room {{ room_data.room_number }}</h1>
+    <h1>Tenant Information</h1>
     <div class="widget">
-        <h2>Tenant Information</h2>
+        <h2>Room {{ room_data.room_number }}</h2>
         <ul>
             {% for tenant in room_data.tenants %}
                 <li>
                     <h2 class="tenant-name">{{ tenant }}</h2>
-                    <div class="tenant-info">
-                        <h3>Additional Information</h3>
-                        <textarea class="tenant-details" placeholder="Add your details here..."></textarea>
-                    </div>
+                    <button class="btn additional-info-btn" data-tenant="{{ tenant }}">Additional Info</button>
                 </li>
             {% endfor %}
         </ul>
         <p>Room Capacity: {{ room_data.capacity }}</p>
     </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Additional Tenant Information</h2>
+            <textarea id="additionalInfo" rows="4" cols="50"></textarea>
+            <button id="saveInfoBtn" class="btn">Save Info</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/tenants_info.js') }}"></script>
 {% endblock %}

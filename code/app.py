@@ -16,6 +16,12 @@ room_data = {
 def index():
     return render_template('index.html', room_data=room_data)
 
+@app.route('/get_additional_info')
+
+def get_additional_info():
+    # In a real application, you'd fetch this from a database
+    return jsonify({"info": "Additional info about the tenant."})
+
 @app.route('/smart_room')
 def smart_room():
     return render_template('smart_room.html')
@@ -49,6 +55,8 @@ def get_sensor_data():
         "temperature": 22.5,
         "humidity": 45
     })
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
