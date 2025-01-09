@@ -58,16 +58,24 @@ def get_sensor_data():
         "humidity": 45
     })
 
+@app.route('/electricity_stats_update', methods=['GET'])
+def electricity_stats_update():
+    res = requests.get('http://192.168.0.106/netio.json')
+    measurments = res.json()['GlobalMeasure']
+    voltage = measurments['Voltage']
+    power = measurments['TotalLoad']
+    return jsonify({ 
+        "voltage" : voltage, 
+        "power" : power 
+    })
+
 @app.route('/electricity_consumption', methods=['GET'])
 def electricity_consumption():
-     res = requests.get('http://192.168.0.140/netio.json')
-     measurments = res.json()['GlobalMeasure']
-     voltage = measurments['Voltage']
-     power = measurments['TotalLoad']
-     return render_template('electricity_consumption.html', Voltage=voltage, Power=power)
+     
+     return render_template('electricity_consumption.html')
 
 
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8080)
+    app.run(debug=True ,port=5000)

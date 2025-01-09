@@ -16,11 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    //function updateCurrentConsumption() {
-      //  const data = fetchConsumptionData();
-        //document.getElementById('currentPower').textContent = data.currentPower.toFixed(2);
-        //document.getElementById('todayUsage').textContent = data.todayUsage.toFixed(2);
-   // }
+    function fetchConsumptionData1() {
+        const url = 'http://localhost:5000/electricity_stats_update'
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url, false ); // false for synchronous request
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+        console.log (xmlHttp.responseText);
+    }
+
+    function updateCurrentConsumption1() {
+      const data = fetchConsumptionData1();
+      document.getElementById('currentPower').textContent = data['power'];
+      document.getElementById('todayUsage').textContent = data['voltage'];
+    }
 
     function createConsumptionChart() {
         const data = fetchConsumptionData();
@@ -63,10 +72,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    //updateCurrentConsumption();
+    updateCurrentConsumption1();
     createConsumptionChart();
     displayEnergyTips();
 
     // Update current consumption every 5 seconds
-    setInterval(updateCurrentConsumption, 5000);
+    setInterval(updateCurrentConsumption1, 5000);
 });
