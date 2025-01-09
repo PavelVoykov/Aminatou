@@ -414,20 +414,20 @@ input[type="number"] {
   background-color: #2980b9;
 }
 
-/* Update the switch styles */
+
 .switch .slider:before {
   position: absolute;
   content: "";
-  height: 36px;
-  width: 36px;
+  height: 18px;
+  width: 18px;
   left: 4px;
-  bottom: 4px;
+  bottom: -4px;
   background-color: white;
   transition: .4s;
-  border: 2px solid black; /* Add black border to the switch circle */
+  border: 2px solid black; 
 }
 
-/* Existing styles... */
+
 
 .modal {
   display: none;
