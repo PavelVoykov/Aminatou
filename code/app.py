@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from werkzeug.utils import secure_filename
+import requests
 import random
 
 app = Flask(__name__)
@@ -57,9 +58,13 @@ def get_sensor_data():
         "humidity": 45
     })
 
-@app.route('/electricity_consumption')
+@app.route('/electricity_consumption', methods=['GET'])
 def electricity_consumption():
-    return render_template('electricity_consumption.html')
+     res = requests.get('http://192.168.0.140/netio.json')
+     measurments = res.json()['GlobalMeasure']
+     voltage = measurments['Voltage']
+     power = measurments['TotalLoad']
+     return render_template('electricity_consumption.html', Voltage=voltage, Power=power)
 
 
 
