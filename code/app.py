@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import os
 from werkzeug.utils import secure_filename
 import random
-
+import requests
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
