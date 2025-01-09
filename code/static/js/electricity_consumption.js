@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    function updateCurrentConsumption() {
-        const data = fetchConsumptionData();
-        document.getElementById('currentPower').textContent = data.currentPower.toFixed(2);
-        document.getElementById('todayUsage').textContent = data.todayUsage.toFixed(2);
-    }
+    //function updateCurrentConsumption() {
+      //  const data = fetchConsumptionData();
+        //document.getElementById('currentPower').textContent = data.currentPower.toFixed(2);
+        //document.getElementById('todayUsage').textContent = data.todayUsage.toFixed(2);
+   // }
 
     function createConsumptionChart() {
         const data = fetchConsumptionData();
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    updateCurrentConsumption();
+    //updateCurrentConsumption();
     createConsumptionChart();
     displayEnergyTips();
 
