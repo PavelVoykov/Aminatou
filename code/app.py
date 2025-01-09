@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from werkzeug.utils import secure_filename
-import requests
 import random
 
 app = Flask(__name__)
@@ -15,14 +14,17 @@ room_data = {
 }
 
 @app.route('/')
-def index():
+def login():
     return render_template('index.html', room_data=room_data)
 
 @app.route('/get_additional_info')
-
 def get_additional_info():
     # In a real application, you'd fetch this from a database
     return jsonify({"info": "Additional info about the tenant."})
+
+@app.route('/access_denied')
+def access_denied():
+    return render_template('access_denied.html')
 
 @app.route('/smart_room')
 def smart_room():
@@ -58,13 +60,9 @@ def get_sensor_data():
         "humidity": 45
     })
 
-@app.route('/electricity_consumption', methods=['GET'])
+@app.route('/electricity_consumption')
 def electricity_consumption():
-     res = requests.get('http://192.168.0.140/netio.json')
-     measurments = res.json()['GlobalMeasure']
-     voltage = measurments['Voltage']
-     power = measurments['TotalLoad']
-     return render_template('electricity_consumption.html', Voltage=voltage, Power=power)
+    return render_template('electricity_consumption.html')
 
 
 

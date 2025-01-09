@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #e74c3c;
+        }
+        #timer {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Access Denied</h1>
+        <p>Too many failed login attempts. Please try again in:</p>
+        <div id="timer">5:00</div>
+        <p>You will be redirected to the login page when the timer expires.</p>
+    </div>
+
+    <script>
+        let timeLeft = 5 * 60;
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            document.getElementById('timer').innerHTML = `${minutes}:${seconds}`;
+            
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+                window.location.href = '/'; 
+            } else {
+                timeLeft--;
+            }
+        }
+
+        const timerInterval = setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
