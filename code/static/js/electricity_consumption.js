@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fetchConsumptionData1() {
         const url = 'http://localhost:5000/electricity_stats_update'
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", url, false ); // false for synchronous request
-        xmlHttp.send( null );
-        return xmlHttp.responseText;
-        console.log (xmlHttp.responseText);
+        fetch(url)
+        .then(response => response.json())  
+        .then(json => {
+            return json
+        })
     }
 
     function updateCurrentConsumption1() {
