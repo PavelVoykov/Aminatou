@@ -3,8 +3,12 @@ import os
 from werkzeug.utils import secure_filename
 import random
 import requests
+from flask import Flask
+from flask_cors import CORS
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
+CORS(app)
 
 # Simulated room data (replace with actual data source)
 room_data = {
