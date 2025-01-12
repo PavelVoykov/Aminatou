@@ -16,19 +16,28 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    function fetchConsumptionData1() {
-        const url = 'http://localhost:5000/electricity_stats_update'
-        fetch(url)
-        .then(response => response.json())  
-        .then(json => {
-            return json
-        })
+    async function fetchConsumptionData1() {
+        const url = 'http://217.105.38.174:8080/electricity_stats_update'
+        //fetch(url)
+        //.then(response => response.json())
+        //.then(json => {
+	const resp = await fetch(url);
+	const data = resp.json();
+            //console.log('fetch: ', data)
+            return data
+        //})
     }
 
     function updateCurrentConsumption1() {
-      const data = fetchConsumptionData1();
-      document.getElementById('currentPower').textContent = data['power'];
-      document.getElementById('todayUsage').textContent = data['voltage'];
+      fetchConsumptionData1()
+	.then(data => {
+  	   //console.log('data: ', data)
+      	   document.getElementById('currentPower').textContent = data['power'];
+      	   document.getElementById('todayUsage').textContent = data['voltage'];
+	   document.getElementById('frequency').textContent = data['frequency'];
+	   document.getElementById('totalEnergy').textContent = data['totalEnergy'];
+
+    	})
     }
 
     function createConsumptionChart() {

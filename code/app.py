@@ -10,6 +10,13 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 CORS(app)
 
+#This hides the flask output messages unless they are errors!!! Comment if you want to debug!!!!
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
+
+
 # Simulated room data (replace with actual data source)
 room_data = {
     "room_number": "101",
@@ -70,9 +77,13 @@ def electricity_stats_update():
     measurments = res.json()['GlobalMeasure']
     voltage = measurments['Voltage']
     power = measurments['TotalLoad']
-    return jsonify({ 
-        "voltage" : voltage, 
-        "power" : power 
+    frequency = measurments['Frequency']
+    totalEnergy = measurments['TotalEnergy'] 
+    return jsonify({
+        "voltage" : voltage,
+        "power" : power,
+	"frequency" : frequency,
+	"totalEnergy" : totalEnergy
     })
 
 @app.route('/electricity_consumption', methods=['GET'])
