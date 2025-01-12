@@ -11,9 +11,9 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 CORS(app)
 
 #This hides the flask output messages unless they are errors!!! Comment if you want to debug!!!!
-import logging
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
+#import logging
+#log = logging.getLogger('werkzeug')
+#log.setLevel(logging.ERROR)
 
 
 
@@ -91,8 +91,12 @@ def electricity_consumption():
      
      return render_template('electricity_consumption.html')
 
-
-
+@app.route('/turnon')
+def turnOn(state):
+	print(state)
+	print(state.type)
+	res = requests.put("192.168.0.100/api/MIi0yX5pCq4oErmVf2pJVsddd71QXCVjTZ55xaQe/lights/1/state / put", data = state)
+	return 200
 
 if __name__ == '__main__':
     app.run(debug=True ,port=5000)
