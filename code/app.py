@@ -91,12 +91,13 @@ def electricity_consumption():
      
      return render_template('electricity_consumption.html')
 
-@app.route('/turnon')
-def turnOn(state):
-	print(state)
-	print(state.type)
-	res = requests.put("192.168.0.100/api/MIi0yX5pCq4oErmVf2pJVsddd71QXCVjTZ55xaQe/lights/1/state / put", data = state)
-	return 200
+@app.route('/turnon', methods=['PUT'])
+def turnOn():
+	print(request.json)
+	res = requests.put("http://192.168.0.100/api/MIi0yX5pCq4oErmVf2pJVsddd71QXCVjTZ55xaQe/lights/1/state", data = request.json)
+	print(res)
+	print("________________________________________")
+	return res.json()
 
 if __name__ == '__main__':
     app.run(debug=True ,port=5000)

@@ -7,12 +7,12 @@ function updateSensorData() {
         });
 }
 
-function updateLampState(isOn) {
-    const bridgeIp = '192.168.0.105:8080';
+async function updateLampState(isOn) {
+    const bridgeIp = '217.105.38.174:8080';
     const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
     const lightId = '1';
 
-    fetch(`https://${bridgeIp}/turnon`, {
+    const resp = await fetch(`${bridgeIp}/turnon`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -21,17 +21,19 @@ function updateLampState(isOn) {
             on: isOn
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(`Lamp turned ${isOn ? 'on' : 'off'}`, data);
-        const lampStateElement = document.getElementById('lamp-state');
-        if (lampStateElement) {
-            lampStateElement.textContent = isOn ? 'On' : 'Off';
-        }
-    })
-    .catch(error => {
-        console.error('Error updating lamp state:', error);
-    });
+    const resData = await resp.json()
+    return resData;
+  //  .then(response => response.json())
+    //.then(data => {
+     //   console.log(`Lamp turned ${isOn ? 'on' : 'off'}`, data);
+       // const lampStateElement = document.getElementById('lamp-state');
+       // if (lampStateElement) {
+        //    lampStateElement.textContent = isOn ? 'On' : 'Off';
+      //  }
+    //})
+   // .catch(error => {
+    //    console.error('Error updating lamp state:', error);
+  //  });
 }
 
 function updateBrightness(brightness) {
