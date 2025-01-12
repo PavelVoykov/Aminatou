@@ -94,9 +94,7 @@ def electricity_consumption():
 @app.route('/turnon', methods=['PUT'])
 def turnOn():
 	print(request.json)
-	res = requests.put("http://192.168.0.100/api/MIi0yX5pCq4oErmVf2pJVsddd71QXCVjTZ55xaQe/lights/1/state", data = request.json)
-	print(res)
-	print("________________________________________")
+	res = requests.put("http://192.168.0.100/api/MIi0yX5pCq4oErmVf2pJVsddd71QXCVjTZ55xaQe/lights/1/state", json = request.json)
 	return res.json()
 
 if __name__ == '__main__':

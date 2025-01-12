@@ -9,25 +9,32 @@ function updateSensorData() {
 
 
 async function updateLampState(isOn) {
-    const bridgeIp = '217.105.38.174:8080';
-    const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
-    const lightId = '1';
-
-    const resp = await fetch(`${bridgeIp}/turnon`, {
+    const bridgeIp = 'http://217.105.38.174:8080';
+    const lampStateElement = document.getElementById('lamp-state');
+    let lampStatus
+    if (lampStateElement.textContent == "On"){
+	lampStatus = false;
+	console.log(lampStatus)
+    }else{
+        lampStatus = true;
+	console.log(lampStatus)
+    }
+    const resp = await fetch(bridgeIp + `/turnon`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            "on": true
+            "on": lampStatus
         })
     })
     const resData = await resp.json()
+    //This should be revisited. The state and the text of the slider button don't change.
     return resData;
   //  .then(response => response.json())
     //.then(data => {
      //   console.log(`Lamp turned ${isOn ? 'on' : 'off'}`, data);
-       // const lampStateElement = document.getElementById('lamp-state');
+       ;
        // if (lampStateElement) {
         //    lampStateElement.textContent = isOn ? 'On' : 'Off';
       //  }
