@@ -8,21 +8,85 @@ function updateSensorData() {
 }
 
 function updateLampState(isOn) {
-    const lampStateElement = document.getElementById('lamp-state');
-    lampStateElement.textContent = isOn ? 'On' : 'Off';
-    // Here you would send the lamp state to your backend/ESP32
-    console.log(`Lamp turned ${isOn ? 'on' : 'off'}`);
+    const bridgeIp = '192.168.0.105:8080';
+    const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
+    const lightId = '1';
+
+    fetch(`https://${bridgeIp}/turnon`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            on: isOn
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(`Lamp turned ${isOn ? 'on' : 'off'}`, data);
+        const lampStateElement = document.getElementById('lamp-state');
+        if (lampStateElement) {
+            lampStateElement.textContent = isOn ? 'On' : 'Off';
+        }
+    })
+    .catch(error => {
+        console.error('Error updating lamp state:', error);
+    });
 }
 
 function updateBrightness(brightness) {
-    document.getElementById('brightness-value').textContent = `${brightness}%`;
-    // Here you would send the brightness value to your backend/ESP32
-    console.log(`Brightness set to ${brightness}%`);
+    const bridgeIp = '192.168.0.105';
+    const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
+    const lightId = '1';
+
+    const hueBrightness = Math.round((brightness / 100) * 254);
+
+    fetch(`https://${bridgeIp}/api/${username}/lights/${lightId}/state`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            on: true,
+            bri: hueBrightness
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(`Brightness set to ${brightness}%`, data);
+        const brightnessElement = document.getElementById('brightness-value');
+        if (brightnessElement) {
+            brightnessElement.textContent = `${brightness}%`;
+        }
+    })
+    .catch(error => {
+        console.error('Error updating brightness:', error);
+    });
 }
 
 function updateColor(color) {
-    // Here you would send the color value to your backend/ESP32
-    console.log(`Color set to ${color}`);
+    const bridgeIp = '192.168.0.105';
+    const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
+    const lightId = '1';
+     fetch(`https://${bridgeIp}/api/${username}/lights/${lightId}/state`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            on: true,
+            sat: 254,
+            bri: 254,
+            hue: color
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(`Color set to ${color}`, data);
+    })
+    .catch(error => {
+        console.error('Error updating color:', error);
+    });
 }
 
 function setPreferredTemp(temp) {
