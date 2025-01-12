@@ -7,6 +7,7 @@ function updateSensorData() {
         });
 }
 
+
 async function updateLampState(isOn) {
     const bridgeIp = '217.105.38.174:8080';
     const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
@@ -18,7 +19,7 @@ async function updateLampState(isOn) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            on: isOn
+            "on": true
         })
     })
     const resData = await resp.json()
@@ -37,7 +38,7 @@ async function updateLampState(isOn) {
 }
 
 function updateBrightness(brightness) {
-    const bridgeIp = '192.168.0.105';
+    const bridgeIp = '217.105.38.174:8080';
     const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
     const lightId = '1';
 
@@ -49,8 +50,8 @@ function updateBrightness(brightness) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            on: true,
-            bri: hueBrightness
+            "on": true,
+            "bri": hueBrightness
         })
     })
     .then(response => response.json())
@@ -67,7 +68,7 @@ function updateBrightness(brightness) {
 }
 
 function updateColor(color) {
-    const bridgeIp = '192.168.0.105';
+    const bridgeIp = '217.105.38.174:8080';
     const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
     const lightId = '1';
      fetch(`https://${bridgeIp}/api/${username}/lights/${lightId}/state`, {
@@ -76,10 +77,10 @@ function updateColor(color) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            on: true,
-            sat: 254,
-            bri: 254,
-            hue: color
+            "on": true,
+            "sat": 254,
+            "bri": 254,
+            "hue": color
         })
     })
     .then(response => response.json())
