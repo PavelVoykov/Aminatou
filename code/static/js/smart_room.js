@@ -9,14 +9,17 @@ function updateSensorData() {
 
 
 async function updateLampState(isOn) {
-    const bridgeIp = 'http://217.105.38.174:8080';
+    const bridgeIp = 'http://192.168.0.105:8080';
     const lampStateElement = document.getElementById('lamp-state');
     let lampStatus
+    if (lampStateElement) {
+        lampStateElement.textContent = isOn ? 'On' : 'Off';
+    }
     if (lampStateElement.textContent == "On"){
-	lampStatus = false;
+	lampStatus = true;
 	console.log(lampStatus)
     }else{
-        lampStatus = true;
+        lampStatus = false;
 	console.log(lampStatus)
     }
     const resp = await fetch(bridgeIp + `/turnon`, {
@@ -31,17 +34,6 @@ async function updateLampState(isOn) {
     const resData = await resp.json()
     //This should be revisited. The state and the text of the slider button don't change.
     return resData;
-  //  .then(response => response.json())
-    //.then(data => {
-     //   console.log(`Lamp turned ${isOn ? 'on' : 'off'}`, data);
-       ;
-       // if (lampStateElement) {
-        //    lampStateElement.textContent = isOn ? 'On' : 'Off';
-      //  }
-    //})
-   // .catch(error => {
-    //    console.error('Error updating lamp state:', error);
-  //  });
 }
 
 function updateBrightness(brightness) {

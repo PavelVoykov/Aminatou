@@ -95,6 +95,7 @@ def electricity_consumption():
 def turnOn():
 	print(request.json)
 	res = requests.put("http://192.168.0.100/api/MIi0yX5pCq4oErmVf2pJVsddd71QXCVjTZ55xaQe/lights/1/state", json = request.json)
+	print(res.json())
 	return res.json()
 
 if __name__ == '__main__':
