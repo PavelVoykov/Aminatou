@@ -36,14 +36,15 @@ async function updateLampState(isOn) {
     return resData;
 }
 
-function updateBrightness(brightness) {
-    const bridgeIp = '217.105.38.174:8080';
-    const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
-    const lightId = '1';
+async function updateBrightness(brightness) {
+    const bridgeIp = 'http://192.168.0.105:8080';
 
     const hueBrightness = Math.round((brightness / 100) * 254);
-
-    fetch(`https://${bridgeIp}/api/${username}/lights/${lightId}/state`, {
+    const brightnessElement = document.getElementById('brightness-value');
+    if (brightnessElement) {
+            brightnessElement.textContent = `${brightness}%`;
+    }
+    const resp = await fetch(bridgeIp + `/turnon`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -53,42 +54,28 @@ function updateBrightness(brightness) {
             "bri": hueBrightness
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(`Brightness set to ${brightness}%`, data);
-        const brightnessElement = document.getElementById('brightness-value');
-        if (brightnessElement) {
-            brightnessElement.textContent = `${brightness}%`;
-        }
-    })
-    .catch(error => {
-        console.error('Error updating brightness:', error);
-    });
+    const resData = await resp.json();
+    return resData;
 }
 
-function updateColor(color) {
-    const bridgeIp = '217.105.38.174:8080';
-    const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
-    const lightId = '1';
-     fetch(`https://${bridgeIp}/api/${username}/lights/${lightId}/state`, {
+async function updateColor(color) {
+    const bridgeIp = 'http://192.168.0.105:8080';
+    console.log(color)
+    hslValue = hexToHSL(color)
+    const resp = await fetch(bridgeIp + `/turnon`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             "on": true,
-            "sat": 254,
-            "bri": 254,
-            "hue": color
+	    "bri":Math.round(hslValue['l']*254),
+	    "hue":Math.round(hslValue['h']*65535),
+	    "sat":Math.round(hslValue['s']*254)
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(`Color set to ${color}`, data);
-    })
-    .catch(error => {
-        console.error('Error updating color:', error);
-    });
+    const resData = await resp.json();
+    return resData;
 }
 
 function setPreferredTemp(temp) {
@@ -138,3 +125,31 @@ document.getElementById('color').addEventListener('input', function() {
     localStorage.setItem('color', color);
     updateColor(color);
 });
+
+
+function hexToHSL(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    r = parseInt(result[1], 16);
+    g = parseInt(result[2], 16);
+    b = parseInt(result[3], 16);
+    r /= 255, g /= 255, b /= 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+    if(max == min){
+      h = s = 0; // achromatic
+    }else{
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch(max){
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+  var HSL = new Object();
+  HSL['h']=h;
+  HSL['s']=s;
+  HSL['l']=l;
+  return HSL;
+}

@@ -26,7 +26,7 @@ room_data = {
 
 @app.route('/')
 def login():
-    return render_template('index.html', room_data=room_data)
+    return render_template('Login.html', room_data=room_data)
 
 @app.route('/get_additional_info')
 def get_additional_info():
