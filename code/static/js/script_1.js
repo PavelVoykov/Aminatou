@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         messageElement.textContent = 'Login successful! Redirecting...';
         messageElement.style.color = 'green';
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = '/';
         }, 1000);
     } else {
         loginAttempts++;
