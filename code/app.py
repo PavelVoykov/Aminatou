@@ -24,8 +24,12 @@ room_data = {
     "capacity": 2
 }
 
-@app.route('/')
+@app.route('/login')
 def login():
+    return render_template('login.html')
+
+@app.route('/')
+def home():
     return render_template('index.html', room_data=room_data)
 
 @app.route('/get_additional_info')

@@ -66,11 +66,10 @@ function updateBrightness(brightness) {
     });
 }
 
-function updateColor(color) {
-    const bridgeIp = '217.105.38.174:8080';
-    const username = 'JSElU8MvwfUi76c1RhKArNlfEbp89Fa8bUp0b95A';
-    const lightId = '1';
-     fetch(`https://${bridgeIp}/api/${username}/lights/${lightId}/state`, {
+async function updateColor(color) {
+    const bridgeIp = 'http://192.168.0.105:8080';
+    
+    const resp = await fetch(bridgeIp + `/setcolor`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -81,14 +80,11 @@ function updateColor(color) {
             "bri": 254,
             "hue": color
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(`Color set to ${color}`, data);
-    })
-    .catch(error => {
-        console.error('Error updating color:', error);
     });
+
+    const resData = await resp.json();
+    console.log(`Color set to ${color}`, resData);
+    return resData;
 }
 
 function setPreferredTemp(temp) {

@@ -1,6 +1,6 @@
 const validCredentials = [
-    { username: 'john_doe', password: 'jane_smith' },
-    { username: 'password_1234', password: '1234_password' }
+    { username: 'john_doe', password: 'Password_1234' },
+    { username: 'jane_smith', password: '1234_Password' }
 ];
 
 let loginAttempts = 0;
