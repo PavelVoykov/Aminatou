@@ -135,5 +135,9 @@ def turnOn():
 def contact():
     return render_template('contact.html')
 
+@app.route('/policy')
+def policy():
+    return render_template('policy.html')
+
 if __name__ == '__main__':
     app.run(debug=True ,port=5000)
