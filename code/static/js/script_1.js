@@ -7,7 +7,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     const password = document.getElementById('password').value;
     const messageElement = document.getElementById('message');
 
-   
     fetch('/login', {
         method: 'POST',
         headers: {
@@ -15,12 +14,13 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         },
         body: JSON.stringify({ username: username, password: password }) 
     })
-    .then(response => {
-        if (response.ok) {
+    .then(response => response.json())
+    .then(data => {
+        if (data.redirect) {
             messageElement.textContent = 'Login successful! Redirecting...';
             messageElement.style.color = 'green';
             setTimeout(() => {
-                window.location.href = '/'; 
+                window.location.href = data.redirect;
             }, 1000);
         } else {
             loginAttempts++;
@@ -42,4 +42,3 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         messageElement.style.color = 'red';
     });
 });
-
