@@ -21,6 +21,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+latest_sensor_data = {"temperature" : 22, "humidity": 30}
+
 room_data = {
     "room_number": "101",
     "tenants": ["John Doe", "Jane Smith"],
@@ -97,11 +99,14 @@ def upload_file():
 def get_sensor_data():
     # Here you would typically make a request to your ESP32
     # For now, we'll return dummy data
-    return jsonify({
-        "temperature": 22.5,
-        "humidity": 45
-    })
-
+    response = jsonify(latest_sensor_data)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+@app.route('/add_sensor_data', methods=['POST'])
+def add_sensor_data():
+	global latest_sensor_data
+	latest_sensor_data = request.json
+	return jsonify({"message":"Success"})
 @app.route('/electricity_stats_update', methods=['GET'])
 def electricity_stats_update():
     res = requests.get('http://192.168.0.106/netio.json')
@@ -121,7 +126,6 @@ def electricity_stats_update():
 
 @app.route('/electricity_consumption', methods=['GET'])
 def electricity_consumption():
-     
      return render_template('electricity_consumption.html')
 
 @app.route('/turnon', methods=['PUT'])
