@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
 from werkzeug.utils import secure_filename
 import random
@@ -7,6 +8,7 @@ from flask import Flask
 from flask_cors import CORS
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 CORS(app)
 
@@ -15,26 +17,53 @@ CORS(app)
 #log = logging.getLogger('werkzeug')
 #log.setLevel(logging.ERROR)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
-
-# Simulated room data (replace with actual data source)
 room_data = {
     "room_number": "101",
     "tenants": ["John Doe", "Jane Smith"],
     "capacity": 2
 }
 
-@app.route('/login')
+users = { 
+    'john_doe': {'password': 'Password_1234'},
+    'jane_smith': {'password': '1234_Password'}
+} 
+
+class User(UserMixin):
+    def __init__(self, username):
+        self.id = username
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User(user_id) if user_id in users else None
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        data = request.get_json()  
+        username = data.get('username')  
+        password = data.get('password')
+        
+        user = users.get(username)  
+        if user and user['password'] == password:
+            user_obj = User(username)
+            login_user(user_obj)
+            return jsonify({"message": "Login successful"}), 200  
+        
+        return jsonify({"message": "Invalid credentials"}), 401  
+
     return render_template('login.html')
 
 @app.route('/')
-def login():
-    return render_template('index.html', room_data=room_data)
+@login_required
+def home_page():
+    return render_template('index.html', room_data={"room_number": "101", "tenants": ["John Doe", "Jane Smith"], "capacity": 2})
 
 @app.route('/get_additional_info')
 def get_additional_info():
-    # In a real application, you'd fetch this from a database
     return jsonify({"info": "Additional info about the tenant."})
 
 @app.route('/access_denied')
