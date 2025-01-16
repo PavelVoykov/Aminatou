@@ -26,7 +26,7 @@ room_data = {
 
 @app.route('/')
 def login():
-    return render_template('Login.html', room_data=room_data)
+    return render_template('index.html', room_data=room_data)
 
 @app.route('/get_additional_info')
 def get_additional_info():
@@ -78,13 +78,15 @@ def electricity_stats_update():
     voltage = measurments['Voltage']
     power = measurments['TotalLoad']
     frequency = measurments['Frequency']
-    totalEnergy = measurments['TotalEnergy'] 
-    return jsonify({
+    totalEnergy = measurments['TotalEnergy']
+    response = jsonify({
         "voltage" : voltage,
         "power" : power,
 	"frequency" : frequency,
 	"totalEnergy" : totalEnergy
     })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/electricity_consumption', methods=['GET'])
 def electricity_consumption():
@@ -99,4 +101,4 @@ def turnOn():
 	return res.json()
 
 if __name__ == '__main__':
-    app.run(debug=True ,port=5000)
+    app.run(debug=False ,port=80, host="0.0.0.0")
