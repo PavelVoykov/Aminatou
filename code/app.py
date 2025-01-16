@@ -100,11 +100,14 @@ def upload_file():
 @app.route('/get_sensor_data')
 @login_required
 def get_sensor_data():
-    return jsonify({
-        "temperature": 22.5,
-        "humidity": 45
-    })
-
+    response = jsonify(latest_sensor_data)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+@app.route('/add_sensor_data', methods=['POST'])
+def add_sensor_data():
+	global latest_sensor_data
+	latest_sensor_data = request.json
+	return jsonify({"message":"Success"})
 @app.route('/electricity_stats_update', methods=['GET'])
 @login_required
 def electricity_stats_update():
