@@ -5,7 +5,7 @@ body {
     font-family: sans-serif;
     line-height: 1.5;
     min-height: 100vh;
-    background: #f3f3f3;
+    background: #2c3e50;
     flex-direction: column;
     margin: 0;
 }
@@ -21,7 +21,7 @@ body {
 }
 
 h1 {
-    color: #4CAF50;
+    color: #2c3e50;
 }
 
 label {
@@ -52,7 +52,7 @@ button {
     border: none;
     color: white;
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: #3498db;
     width: 100%;
     font-size: 16px;
 }
