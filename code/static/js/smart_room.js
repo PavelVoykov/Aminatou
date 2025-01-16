@@ -9,7 +9,7 @@ function updateSensorData() {
 
 
 async function updateLampState(isOn) {
-    const bridgeIp = 'http://192.168.0.105:8080';
+    const bridgeIp = 'http://192.168.0.105:80';
     const lampStateElement = document.getElementById('lamp-state');
     let lampStatus
     if (lampStateElement) {
@@ -37,7 +37,7 @@ async function updateLampState(isOn) {
 }
 
 async function updateBrightness(brightness) {
-    const bridgeIp = 'http://192.168.0.105:8080';
+    const bridgeIp = 'http://192.168.0.105:80';
 
     const hueBrightness = Math.round((brightness / 100) * 254);
     const brightnessElement = document.getElementById('brightness-value');
@@ -59,7 +59,7 @@ async function updateBrightness(brightness) {
 }
 
 async function updateColor(color) {
-    const bridgeIp = 'http://192.168.0.105:8080';
+    const bridgeIp = 'http://192.168.0.105:80';
     console.log(color)
     hslValue = hexToHSL(color)
     const resp = await fetch(bridgeIp + `/turnon`, {
