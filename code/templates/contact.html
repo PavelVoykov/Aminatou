@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+    <h1>Contact Us</h1>
+    <div class="widget">
+        <h2>Get in Touch</h2>
+        <p>Have questions or concerns? Feel free to reach out to us using the form below.</p>
+        <form id="contactForm" class="contact-form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+    <div class="widget">
+        <h2>Contact Information</h2>
+        <p>Email: info@studentroom.com</p>
+        <p>Phone: +1 (123) 456-7890</p>
+        <p>Address: 123 Fontys Street, Eindhoven, 5435 CP</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+{% endblock %}

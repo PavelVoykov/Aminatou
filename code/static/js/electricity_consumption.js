@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function fetchConsumptionData1() {
-        const url = 'http://217.105.38.174:8080/electricity_stats_update'
+        const url = 'http://192.168.0.105:80/electricity_stats_update'
         //fetch(url)
         //.then(response => response.json())
         //.then(json => {

@@ -46,13 +46,11 @@ def login():
         data = request.get_json()  
         username = data.get('username')  
         password = data.get('password')
-        
         user = users.get(username)  
         if user and user['password'] == password:
             user_obj = User(username)
             login_user(user_obj)
             return jsonify({"message": "Login successful"}), 200  
-        
         return jsonify({"message": "Invalid credentials"}), 401  
 
     return render_template('login.html')
@@ -111,13 +109,15 @@ def electricity_stats_update():
     voltage = measurments['Voltage']
     power = measurments['TotalLoad']
     frequency = measurments['Frequency']
-    totalEnergy = measurments['TotalEnergy'] 
-    return jsonify({
+    totalEnergy = measurments['TotalEnergy']
+    response = jsonify({
         "voltage" : voltage,
         "power" : power,
 	"frequency" : frequency,
 	"totalEnergy" : totalEnergy
     })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/electricity_consumption', methods=['GET'])
 def electricity_consumption():
@@ -131,9 +131,13 @@ def turnOn():
 	print(res.json())
 	return res.json()
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 @app.route('/policy')
 def policy():
     return render_template('policy.html')
 
 if __name__ == '__main__':
-    app.run(debug=True ,port=5000)
+    app.run(debug=False ,port=80, host="0.0.0.0")
