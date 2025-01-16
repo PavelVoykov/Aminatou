@@ -135,5 +135,13 @@ def turnOn():
 	print(res.json())
 	return res.json()
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/policy')
+def policy():
+    return render_template('policy.html')
+
 if __name__ == '__main__':
-    app.run(debug=False ,port=80, host="0.0.0.0")
+    app.run(debug=True ,port=5000)

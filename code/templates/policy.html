@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Tenant Policy{% endblock %}
+
+{% block content %}
+    <h1>Tenant Policy</h1>
+    <div class="policy-container">
+        <h2>General Rules and Guidelines</h2>
+        <dl class="rules-list">
+            <dd> - Rent Payment: Rent is due on the 1st of each month. Late payments may incur additional fees.</dd>
+            <dd> - Noise: Quiet hours are from 10 PM to 7 AM. Please be considerate of your neighbors.</dd>
+            <dd> - Overnight guests are limited to 3 consecutive nights and no more than 10 nights per month.</dd>
+            <dd> - Maintenance: Report any maintenance issues promptly to the management.</dd>
+            <dd> - Cleanliness: Keep your living space and common areas clean and tidy.</dd>
+            <dd> - Smoking: This is a non-smoking property. Smoking is prohibited inside the building.</dd>
+            <dd> - Pets: Pets are allowed with prior approval and may require an additional deposit.</dd>
+            <dd> - Alterations: No alterations to the property without written permission from management.<dd>
+            <dd> - Common Areas: Respect shared spaces and follow posted guidelines for their use.</dd>
+            <dd> - Security: Do not share building access codes or keys with non-residents.</dd> 
+        </dl>
+        <tr></tr>
+        <h2>Additional Information</h2>
+        <p>For full details on policies and procedures, please refer to your lease agreement or contact the management office.</p>
+
+        <div id="policy-acknowledgement">
+            <h3>Policy Acknowledgement</h3>
+            <p>By clicking the button below, you acknowledge that you have read and understood the tenant policy.</p>
+            <button id="acknowledgeBtn" class="btn">I Acknowledge</button>
+            <p id="acknowledgementStatus"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const acknowledgeBtn = document.getElementById('acknowledgeBtn');
+            const statusElement = document.getElementById('acknowledgementStatus');
+
+            acknowledgeBtn.addEventListener('click', function() {
+                localStorage.setItem('policyAcknowledged', 'true');
+                statusElement.textContent = 'Policy acknowledged on ' + new Date().toLocaleString();
+            });
+
+            if (localStorage.getItem('policyAcknowledged') === 'true') {
+                statusElement.textContent = 'Policy previously acknowledged';
+            }
+        });
+    </script>
+{% endblock %}
